@@ -1,0 +1,76 @@
+jenkins:
+  systemMessage: "ci-lab: учебный Jenkins"
+  numExecutors: 2
+  mode: NORMAL
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "${JENKINS_ADMIN_PASSWORD}"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: DOCKERHUB_USER
+            value: "${DOCKERHUB_USER}"
+          - key: KUBECONFIG
+            value: "/var/jenkins_home/.kube/config"
+          - key: MAIL_HOST
+            value: "${MAIL_HOST}"
+          - key: MAIL_PORT
+            value: "${MAIL_PORT}"
+          - key: MAIL_USER
+            value: "${MAIL_USER}"
+          - key: MAIL_FROM
+            value: "${MAIL_FROM}"
+          - key: MAIL_TO
+            value: "${MAIL_TO}"
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: dockerhub
+              username: "${DOCKERHUB_USER}"
+              password: "${DOCKERHUB_TOKEN}"
+              description: Docker Hub
+          - string:
+              scope: GLOBAL
+              id: render-deploy-hook
+              secret: "${RENDER_DEPLOY_HOOK_URL}"
+              description: Render deploy hook
+          - string:
+              scope: GLOBAL
+              id: mail-password
+              secret: "${MAIL_PASS}"
+              description: SMTP пароль приложения
+
+jobs:
+  - script: |
+      pipelineJob('ci-lab') {
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('${GITHUB_REPO_URL}')
+                }
+                branch('*/main')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+        triggers {
+          pollSCM('H/2 * * * *')
+        }
+      }
+
+unclassified:
+  location:
+    url: http://localhost:8080/
