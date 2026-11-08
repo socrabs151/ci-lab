@@ -79,7 +79,7 @@ deploy_k8s:
   script:
     - export KUBECONFIG="$KUBE_CONFIG"
     - kubectl get nodes
-    - helm upgrade --install ci-lab helm/ci-lab --namespace ci-lab --create-namespace --set image.repository="$IMAGE_REPO" --set image.tag="$IMAGE_TAG" --wait --timeout 180s
+    - helm upgrade --install ci-lab helm/ci-lab --namespace ci-lab --create-namespace --set image.repository="$IMAGE_REPO" --set image.tag="$IMAGE_TAG" --set imagePullSecrets[0].name=regcred --wait --timeout 180s
     - kubectl -n ci-lab get pods,svc
   environment:
     name: production
