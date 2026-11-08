@@ -18,6 +18,8 @@ jenkins:
             value: "${DOCKERHUB_USER}"
           - key: KUBECONFIG
             value: "/var/jenkins_home/.kube/config"
+          - key: SONAR_HOST_URL
+            value: "http://host.docker.internal:9000"
           - key: MAIL_HOST
             value: "${MAIL_HOST}"
           - key: MAIL_PORT
@@ -49,6 +51,11 @@ credentials:
               id: mail-password
               secret: "${MAIL_PASS}"
               description: SMTP пароль приложения
+          - string:
+              scope: GLOBAL
+              id: sonar-token
+              secret: "${SONAR_TOKEN}"
+              description: SonarQube token
 
 jobs:
   - script: |

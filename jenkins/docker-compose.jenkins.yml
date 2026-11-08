@@ -16,6 +16,7 @@ services:
       MAIL_PASS: ${MAIL_PASS}
       MAIL_FROM: ${MAIL_FROM}
       MAIL_TO: ${MAIL_TO}
+      SONAR_TOKEN: ${SONAR_TOKEN}
       GITHUB_REPO_URL: ${GITHUB_REPO_URL}
     volumes:
       - jenkins_home:/var/jenkins_home

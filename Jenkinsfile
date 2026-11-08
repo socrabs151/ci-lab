@@ -34,6 +34,14 @@ pipeline {
       }
     }
 
+    stage('SonarQube') {
+      steps {
+        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+          sh 'sonar-scanner'
+        }
+      }
+    }
+
     stage('Build') {
       steps {
         sh 'npm run build'
