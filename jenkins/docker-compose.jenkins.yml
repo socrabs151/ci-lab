@@ -1,7 +1,8 @@
 services:
   jenkins:
-    build: ./jenkins
+    build: .
     container_name: ci-lab-jenkins
+    user: root
     ports:
       - "8080:8080"
       - "50000:50000"
@@ -9,7 +10,7 @@ services:
       JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD}
       DOCKERHUB_USER: ${DOCKERHUB_USER}
       DOCKERHUB_TOKEN: ${DOCKERHUB_TOKEN}
-      RENDER_DEPLOY_HOOK_URL: ${RENDER_DEPLOY_HOOK_URL}
+      RAILWAY_TOKEN: ${RAILWAY_TOKEN}
       MAIL_HOST: ${MAIL_HOST}
       MAIL_PORT: ${MAIL_PORT}
       MAIL_USER: ${MAIL_USER}
@@ -20,6 +21,7 @@ services:
       GITHUB_REPO_URL: ${GITHUB_REPO_URL}
     volumes:
       - jenkins_home:/var/jenkins_home
+      - ./casc:/var/jenkins_home/casc_configs:ro
       - /var/run/docker.sock:/var/run/docker.sock
       - ${USERPROFILE}/.kube:/var/jenkins_home/.kube:ro
     restart: unless-stopped

@@ -71,8 +71,8 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        withCredentials([string(credentialsId: 'render-deploy-hook', variable: 'RENDER_DEPLOY_HOOK_URL')]) {
-          sh 'curl -fsSL -X POST "$RENDER_DEPLOY_HOOK_URL"'
+        withCredentials([string(credentialsId: 'railway-token', variable: 'RAILWAY_TOKEN')]) {
+          sh 'railway up --service ci-lab --detach --ci'
         }
       }
     }

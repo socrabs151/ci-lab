@@ -26,14 +26,15 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:22.11
     steps:
+      - checkout
       - run:
-          name: Deploy to Render
-          command: |
-            curl -fsSL -X POST "$RENDER_DEPLOY_HOOK_URL" \
-              -H "Content-Type: application/json" \
-              -d "{\"clearCache\": false}"
+          name: Install Railway CLI
+          command: npm install -g @railway/cli
+      - run:
+          name: Deploy to Railway
+          command: railway up --service ci-lab --detach --ci
 
 workflows:
   ci-deploy:

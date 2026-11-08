@@ -15,6 +15,7 @@ RUN apt-get update \
     && curl -fsSLo /tmp/sonar.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.2.0.5079-linux-x64.zip \
     && unzip -q /tmp/sonar.zip -d /opt \
     && ln -s /opt/sonar-scanner-7.2.0.5079-linux-x64/bin/sonar-scanner /usr/local/bin/sonar-scanner \
+    && npm install -g @railway/cli \
     && rm -rf /tmp/*.tgz /tmp/*.zip /var/lib/apt/lists/*
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt

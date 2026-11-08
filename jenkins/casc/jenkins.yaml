@@ -43,9 +43,9 @@ credentials:
               description: Docker Hub
           - string:
               scope: GLOBAL
-              id: render-deploy-hook
-              secret: "${RENDER_DEPLOY_HOOK_URL}"
-              description: Render deploy hook
+              id: railway-token
+              secret: "${RAILWAY_TOKEN}"
+              description: Railway project token
           - string:
               scope: GLOBAL
               id: mail-password
@@ -74,7 +74,7 @@ jobs:
           }
         }
         triggers {
-          pollSCM('H/2 * * * *')
+          scm('H/2 * * * *')
         }
       }
 

@@ -31,11 +31,11 @@ npm start
 
 ## Пайплайны
 
-- `.github/workflows/ci.yml` — линт, тесты, сборка артефакта, SonarCloud, уведомление на почту.
+- `.github/workflows/ci.yml` — линт, тесты, сборка артефакта, уведомление на почту.
 - `.github/workflows/release.yml` — релиз по тегу `v*` с changelog и прикреплённым архивом.
-- `.gitlab-ci.yml` — тесты, сборка Docker-образа, миграции Flyway, деплой в Kubernetes через Helm.
-- `.circleci/config.yml` — тесты и деплой на Render при пуше в `main`.
-- `Jenkinsfile` — многоэтапный пайплайн: сборка, тесты, Docker Hub, деплой.
+- `.gitlab-ci.yml` — тесты, SonarQube, сборка Docker-образа, миграции Flyway, деплой в Kubernetes через Helm.
+- `.circleci/config.yml` — тесты и деплой на Railway при пуше в `main`.
+- `Jenkinsfile` — многоэтапный пайплайн: сборка, тесты, SonarQube, Docker Hub, деплой в Railway.
 - `helm/ci-lab` — чарт для Kubernetes.
 - `db/migration` — миграции Flyway.
 
