@@ -1,0 +1,50 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.3.0
+
+jobs:
+  test:
+    docker:
+      - image: cimg/node:22.11
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Unit tests
+          command: npm test
+      - run:
+          name: Build
+          command: npm run build
+      - store_artifacts:
+          path: dist
+          destination: package
+
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Deploy to Render
+          command: |
+            curl -fsSL -X POST "$RENDER_DEPLOY_HOOK_URL" \
+              -H "Content-Type: application/json" \
+              -d "{\"clearCache\": false}"
+
+workflows:
+  ci-deploy:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
