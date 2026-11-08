@@ -2,6 +2,8 @@
 
 Небольшой HTTP-сервис на Express, на котором собраны пайплайны для практики по CI/CD.
 
+Демо: https://ci-lab-production.up.railway.app/health
+
 ## Стек
 
 - Node.js 22, Express
