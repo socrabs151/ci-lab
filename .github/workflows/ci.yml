@@ -27,13 +27,6 @@ jobs:
           name: ci-lab-package
           path: dist/*.tgz
 
-      - name: SonarCloud
-        if: github.event_name == 'push'
-        uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
-
       - name: Notify email
         if: always()
         env:
