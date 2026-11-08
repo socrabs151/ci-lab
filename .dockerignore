@@ -1,0 +1,14 @@
+node_modules
+coverage
+dist
+reports
+.git
+.github
+.gitlab-ci.yml
+.circleci
+tests
+helm
+db
+README.md
+Jenkinsfile
+*.md
