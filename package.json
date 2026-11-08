@@ -4,6 +4,10 @@
   "description": "Учебный сервис для практики CI/CD",
   "main": "src/server.js",
   "private": true,
+  "files": [
+    "src",
+    "package.json"
+  ],
   "scripts": {
     "start": "node src/server.js",
     "lint": "eslint .",

@@ -37,9 +37,7 @@ sonarqube:
     paths:
       - .sonar/cache
   script:
-    - sonar-scanner
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
+    - sonar-scanner -Dsonar.qualitygate.wait=true
   tags:
     - local
 
@@ -74,7 +72,7 @@ migrate_db:
 
 deploy_k8s:
   stage: deploy
-  needs: ["docker_build"]
+  needs: ["docker_build", "migrate_db"]
   image: dtzar/helm-kubectl:3.15
   script:
     - export KUBECONFIG="$KUBE_CONFIG"

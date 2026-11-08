@@ -41,6 +41,14 @@ npm start
 - `helm/ci-lab` — чарт для Kubernetes.
 - `db/migration` — миграции Flyway.
 
+## Переменные CI
+
+Секреты задаются в настройках соответствующих систем, в репозитории их нет.
+
+- GitHub Actions: `MAIL_HOST`, `MAIL_PORT`, `MAIL_USER`, `MAIL_PASS`, `MAIL_FROM`, `MAIL_TO`.
+- GitLab CI: `DOCKERHUB_USER`, `DOCKERHUB_TOKEN`, `SONAR_HOST_URL`, `SONAR_TOKEN`, `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `KUBE_CONFIG` (файл kubeconfig).
+- CircleCI, Jenkins: `RAILWAY_TOKEN`; Jenkins дополнительно `DOCKERHUB_*`, `SONAR_*`, `MAIL_*` (через Jenkins Credentials).
+
 ## Docker
 
 ```bash

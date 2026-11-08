@@ -30,7 +30,6 @@ pipeline {
     stage('Test') {
       steps {
         sh 'npm test'
-        junit 'reports/junit.xml'
       }
     }
 
@@ -79,6 +78,9 @@ pipeline {
   }
 
   post {
+    always {
+      junit allowEmptyResults: true, testResults: 'reports/junit.xml'
+    }
     success {
       withCredentials([string(credentialsId: 'mail-password', variable: 'MAIL_PASS')]) {
         sh '''

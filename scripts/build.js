@@ -1,6 +1,7 @@
 const { execFileSync } = require('node:child_process');
 const fs = require('node:fs');
 
+fs.rmSync('dist', { recursive: true, force: true });
 fs.mkdirSync('dist', { recursive: true });
 execFileSync('npm', ['pack', '--pack-destination', 'dist'], {
   stdio: 'inherit',

@@ -12,3 +12,6 @@ db
 README.md
 Jenkinsfile
 *.md
+.env
+*.log
+mail.txt
