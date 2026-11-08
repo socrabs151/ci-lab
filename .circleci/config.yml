@@ -30,11 +30,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Railway CLI
-          command: npm install -g @railway/cli
-      - run:
           name: Deploy to Railway
-          command: railway up --service ci-lab --detach --ci
+          command: npx --yes @railway/cli up --service ci-lab --detach --ci
 
 workflows:
   ci-deploy:
