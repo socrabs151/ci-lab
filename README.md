@@ -56,3 +56,16 @@ docker compose up --build
 ```
 
 Поднимает приложение и PostgreSQL 16.
+
+## Kubernetes
+
+Для приватного образа в Docker Hub секрет доступа создаётся один раз:
+
+```bash
+kubectl create namespace ci-lab
+kubectl -n ci-lab create secret docker-registry regcred \
+  --docker-server=https://index.docker.io/v1/ \
+  --docker-username=<логин> --docker-password=<токен>
+```
+
+Чарт использует его через `imagePullSecrets` (параметр `imagePullSecrets[0].name=regcred` в пайплайне).
